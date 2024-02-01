@@ -1,0 +1,7 @@
+./gradlew clean test
+./gradlew clean boardtests
+./gradlew clean profiletests
+./gradlew clean -Pbrowser=firefox profiletests
+./gradlew clean profiletests -Pbrowser=firefox
+./gradlew clean shortTest -Dsuite=profile
+./gradlew clean smoke

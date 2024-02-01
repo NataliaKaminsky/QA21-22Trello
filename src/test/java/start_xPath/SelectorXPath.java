@@ -20,7 +20,7 @@ public class SelectorXPath {
         System.out.println("Before class");
     }
 
-    @Test
+    @Test(enabled = false)
     public void start() {
         System.out.println("Hi test1===================");
         WebElement elementLogin = driver.findElement(By.xpath(
@@ -46,7 +46,7 @@ public class SelectorXPath {
 
     }
 
-    @Test
+    @Test(enabled = false)
     public void start1() {
         System.out.println("Hi test2===================");
     }

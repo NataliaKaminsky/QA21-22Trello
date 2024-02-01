@@ -12,8 +12,54 @@ repositories {
 dependencies {
     implementation group: 'org.testng', name: 'testng', version: '7.4.0'
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.28'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+    implementation 'ch.qos.logback:logback-classic:1.2.11'
 }
 
 test {
     useTestNG()
 }
+
+task boardtests(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/board.xml'
+    }
+}
+
+task profiletests(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/profile.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+}
+
+task shortTest(type: Test) {
+    useTestNG() {
+        if (project.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+        def suite = System.getProperty('suite')
+        if (suite.equals('profile')) {
+            suites 'src/test/resources/profile.xml'
+        } else if (suite.equals('boards')) {
+            suites 'src/test/resources/board.xml'
+        } else {
+            suites 'src/test/resources/profile.xml'
+        }
+    }
+}
+
+
+task smoke(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/smoke.xml'
+    }
+}
+
